@@ -1,4 +1,4 @@
-package com.example.alexandre.list;
+package com.example.alexandre.list.models;
 
 /**
  * Created by Alexandre on 10/10/2017.

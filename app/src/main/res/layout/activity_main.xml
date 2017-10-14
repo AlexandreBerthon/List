@@ -1,45 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.alexandre.list.MainActivity">
 
-    <fragment
-        android:name="com.example.alexandre.list.FragmentOne"
-        android:layout_width="342dp"
-        android:layout_height="438dp"
-        android:id="@+id/fragment_place"
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/linearLayout"
+        android:layout_height="match_parent" />
 
-        tools:layout="@layout/fragment_fragment_one"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="57dp"></fragment>
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="17dp"
-        android:layout_marginStart="21dp"
-        android:onClick="ChangeFragment"
-        android:text="Liste" />
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        android:background="@color/colorPrimaryDark">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="39dp"
-        android:onClick="ChangeFragment"
-        android:text="autrefragment"
-        tools:layout_editor_absoluteY="0dp"
-        android:layout_marginRight="16dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        <Button
+            android:id="@+id/btTweet"
+            android:layout_weight="50"
+            android:layout_height="wrap_content"
+            android:text="@string/tweet_list"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:layout_width="0dp" />
 
-</android.support.constraint.ConstraintLayout>
+        <Button
+            android:id="@+id/btMap"
+            android:layout_weight="50"
+            android:layout_height="wrap_content"
+            android:text="@string/map"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:layout_width="0dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
