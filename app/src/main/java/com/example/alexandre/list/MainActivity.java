@@ -1,82 +1,76 @@
 package com.example.alexandre.list;
 
-import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Button;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.alexandre.list.fragments.MapFragment;
+import com.example.alexandre.list.fragments.TweetListFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, TweetListFragment.OnTweetListClickListener, MapFragment.OnMapClickListener {
 
-    private ListView maListView;
+    private static final String TAG = "MainActivity";
 
-    private String[] prenoms = new String[]{
-            "Alexandre", "Yoann", "Simon", "Bob", "Jean", "Yann", "Louis", "Christophe", "Gael", "Bamboula", "Gareth"
-    };
+    private Button mBtMap;
+    private Button mBtTweetList;
+    private Fragment mMapFragment;
+    private Fragment mTweetFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        maListView = (ListView) findViewById(R.id.list);
+        bindViews();
+        mBtMap.setOnClickListener(this);
+        mBtTweetList.setOnClickListener(this);
 
-        List<Tweet> tweets = genererTweets();
-
-        afficherListeTweets();
+        mMapFragment = MapFragment.newInstance("arg1", "arg2");
+        mTweetFragment = TweetListFragment.newInstance("arg1", "arg2");
+        loadFragment(mTweetFragment);
     }
 
-    private List<Tweet> genererTweets(){
-        List<Tweet> tweets = new ArrayList<Tweet>();
-        tweets.add(new Tweet(Color.BLACK, "Bob", "Salut  !"));
-        tweets.add(new Tweet(Color.BLUE, "Kevin", "C'est ici que ça se passe !"));
-        tweets.add(new Tweet(Color.GREEN, "Logan", "Que c'est beau..."));
-        tweets.add(new Tweet(Color.RED, "Mathieu", "Il est quelle heure ??"));
-        tweets.add(new Tweet(Color.GRAY, "Willy", "On y est presque"));
-        tweets.add(new Tweet(Color.BLACK, "Florent", "Mon premier tweet !"));
-        tweets.add(new Tweet(Color.BLUE, "Kevin", "C'est ici que ça se passe !"));
-        tweets.add(new Tweet(Color.GREEN, "Logan", "Que c'est beau..."));
-        tweets.add(new Tweet(Color.RED, "Mathieu", "Il est quelle heure ??"));
-        tweets.add(new Tweet(Color.GRAY, "Willy", "On y est presque"));
-        tweets.add(new Tweet(Color.BLACK, "Florent", "Mon premier tweet !"));
-        tweets.add(new Tweet(Color.BLUE, "Kevin", "C'est ici que ça se passe !"));
-        tweets.add(new Tweet(Color.GREEN, "Logan", "Que c'est beau..."));
-        tweets.add(new Tweet(Color.RED, "Mathieu", "Il est quelle heure ??"));
-        tweets.add(new Tweet(Color.GRAY, "Willy", "On y est presque"));
-        return tweets;
+
+    private void bindViews() {
+        mBtMap = (Button) findViewById(R.id.btMap);
+        mBtTweetList = (Button) findViewById(R.id.btTweet);
     }
 
-    private void afficherListeTweets(){
-        List<Tweet> tweets = genererTweets();
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btMap:
+                loadFragment(mMapFragment);
+                break;
 
-        TweetAdapter adapter = new TweetAdapter(MainActivity.this, tweets);
-        maListView.setAdapter(adapter);
-    }
-
-    public void ChangeFragment(View view) {
-        Fragment fragment;
-
-        if(view == findViewById(R.id.button)) {
-            fragment = new FragmentOne();
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(R.id.fragment_place, fragment);
-            ft.commit();
-
+            case R.id.btTweet:
+                loadFragment(mTweetFragment);
+                break;
         }
-        else if (view == findViewById(R.id.button2)) {
-            fragment = new FragmentTwo();
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(R.id.fragment_place, fragment);
-            ft.commit();
-        }
+    }
+
+    private void loadFragment(Fragment fragment) {
+        // create a FragmentManager
+        FragmentManager fm = getSupportFragmentManager();
+        // create a FragmentTransaction to begin the transaction and replace the Fragment
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        // replace the FrameLayout with new Fragment
+        fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.commit(); // save the changes
+    }
+
+    @Override
+    public void onTweetListClick() {
+        Log.e(TAG, "onTweetListClick: click !");
+    }
+
+    @Override
+    public void onMapClick() {
+        Log.e(TAG, "onMapClick: click !");
     }
 }

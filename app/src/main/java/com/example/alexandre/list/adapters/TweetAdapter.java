@@ -1,4 +1,4 @@
-package com.example.alexandre.list;
+package com.example.alexandre.list.adapters;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.alexandre.list.R;
+import com.example.alexandre.list.models.Tweet;
 
 import java.util.List;
 
